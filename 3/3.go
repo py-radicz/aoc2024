@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"os"
-    "fmt"
 	"regexp"
-    "strconv"
-    "strings"
+	"strconv"
+	"strings"
 )
 
 func Load(path string) []byte {
@@ -27,21 +27,21 @@ func Matches(data []byte) (result [][]byte) {
 func main() {
 	data := Load("input")
 
-    re := regexp.MustCompile(`(?msU)don\'t\(\).*do\(\)`)
-    data = re.ReplaceAll(data, []byte(""))
+	re := regexp.MustCompile(`(?msU)don\'t\(\).*do\(\)`)
+	data = re.ReplaceAll(data, []byte(""))
 	matches := Matches(data)
-    res := 0
+	res := 0
 
-    for _, v := range matches {
-        tmp := strings.TrimPrefix(string(v), "mul(")
-        tmp = strings.TrimSuffix(tmp, ")")
-        vals := strings.Split(tmp, ",")
+	for _, v := range matches {
+		tmp := strings.TrimPrefix(string(v), "mul(")
+		tmp = strings.TrimSuffix(tmp, ")")
+		vals := strings.Split(tmp, ",")
 
-        part1, _ := strconv.Atoi(vals[0])
-        part2, _ := strconv.Atoi(vals[1])
+		part1, _ := strconv.Atoi(vals[0])
+		part2, _ := strconv.Atoi(vals[1])
 
-        res += part1 * part2
-    }
+		res += part1 * part2
+	}
 
-    fmt.Printf("%v", res)
+	fmt.Printf("%v", res)
 }

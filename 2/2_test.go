@@ -13,7 +13,7 @@ func TestIsSafe(t *testing.T) {
 
 func TestIsSafeDampened(t *testing.T) {
 	want := true
-	got := IsSafeDampened([]int{4, 7, 8 , 9})
+	got := IsSafeDampened([]int{4, 7, 8, 9})
 
 	if want != got {
 		t.Errorf("wanted %v but got %v instead", want, got)

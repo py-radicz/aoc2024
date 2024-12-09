@@ -71,16 +71,16 @@ func IsSafe(slice []int) (result bool) {
 
 func IsSafeDampened(slice []int) bool {
 	for i, _ := range slice {
-        list := []int{}
+		list := []int{}
 
-        for j, _ := range slice {
-            if j != i {
-                list = append(list, slice[j])
-            }
-        }
-        if IsSafe(list) {
-            return true
-        }
+		for j, _ := range slice {
+			if j != i {
+				list = append(list, slice[j])
+			}
+		}
+		if IsSafe(list) {
+			return true
+		}
 	}
 	return false
 }
