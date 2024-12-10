@@ -51,3 +51,33 @@ func TestReverse(t *testing.T) {
 	}
 
 }
+
+func TestSlidingWindows(t *testing.T) {
+	got := SlidingWindows([]string{"abcd", "efgh", "ijkl"})
+	want := [][]string{
+		{"abc", "efg", "ijk"},
+		{"bcd", "fgh", "jkl"},
+	}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("wanted %q but got %q instead", want, got)
+	}
+}
+
+func TestGetDiagonal(t *testing.T) {
+	got := GetDiagonal([]string{"abc", "def", "ghi"})
+	want := "aei"
+
+	if got != want {
+		t.Errorf("wanted %q but got %q instead", want, got)
+	}
+}
+
+func TestPart2(t *testing.T) {
+	got := Part2(Load("test_input"))
+	want := 9
+
+	if got != want {
+		t.Errorf("wanted %v but got %v", want, got)
+	}
+}
