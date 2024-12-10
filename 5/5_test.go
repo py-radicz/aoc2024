@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestIsCorrect(t *testing.T) {
 	rules, updates := Load("test_input")
@@ -11,6 +14,16 @@ func TestIsCorrect(t *testing.T) {
 	assertIsCorrect(t, updates[3], rules, 0)
 	assertIsCorrect(t, updates[4], rules, 0)
 	assertIsCorrect(t, updates[5], rules, 0)
+}
+
+func TestCorrectUpdate(t *testing.T) {
+	rules, updates := Load("test_input")
+	got := CorrectUpdate(updates[3], rules)
+	want := 47
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("wanted %v but got %v", want, got)
+	}
 }
 
 func assertIsCorrect(t testing.TB, update string, rules []string, expectation int) {

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -46,12 +47,45 @@ func IsCorrect(update string, rules []string) int {
 
 }
 
+func CorrectUpdate(update string, rules []string) (result int) {
+	updates := strings.Split(update, ",")
+
+	for IsCorrect(strings.Join(updates, ","), rules) == 0 {
+		for _, up := range updates {
+			for _, rule := range rules {
+				if strings.HasPrefix(rule, string(up)+"|") {
+					up_pos := slices.Index(updates, up)
+					rule_pos := slices.Index(updates, strings.Split(rule, "|")[1])
+
+					if rule_pos == -1 {
+						continue
+					}
+					if up_pos > rule_pos {
+						updates[up_pos], updates[rule_pos] = updates[rule_pos], updates[up_pos]
+					}
+				}
+			}
+		}
+	}
+	return IsCorrect(strings.Join(updates, ","), rules)
+}
+
 func main() {
 	rules, updates := Load("input")
-    var result int
+	var (
+		result  int
+		result2 int
+	)
 
-    for _, up := range updates {
-        result += IsCorrect(up, rules)
-    }
+	for _, up := range updates {
+		result += IsCorrect(up, rules)
+	}
 	fmt.Printf("part1 result is %v\n", result)
+
+	for _, up := range updates {
+		if IsCorrect(up, rules) == 0 {
+			result2 += CorrectUpdate(up, rules)
+		}
+	}
+	fmt.Printf("part2 result is %v\n", result2)
 }
