@@ -1,3 +1,3 @@
-module example.com/hello
+module example.com/aoc
 
-go 1.23
+go 1.23.4
