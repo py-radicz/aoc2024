@@ -5,11 +5,12 @@ import "math"
 import "reflect"
 
 func TestVariations(t *testing.T) {
-	spaces := 8
-	got := Variations(spaces)
+	ops := []string{"+", "*", "|"}
+	spaces := 3
+	got := Variations(ops, spaces)
 
-	if len(got) != int(math.Pow(2, float64(spaces))) {
-		t.Errorf("bad length of result wanted %v but got %v", math.Pow(2, float64(spaces)), len(got))
+	if len(got) != int(math.Pow(float64(len(ops)), float64(spaces))) {
+		t.Errorf("bad length of result wanted %v but got %v", math.Pow(float64(len(ops)), float64(spaces)), len(got))
 	}
 }
 
@@ -59,8 +60,8 @@ func TestStack(t *testing.T) {
 }
 
 func TestEval(t *testing.T) {
-	got := Eval([]int{81, 40, 27}, "*+")
-	want := 3267
+	got := Eval([]int{81, 13, 1}, "++")
+	want := 95
 
 	if want != got {
 		t.Errorf("wanted %v but got %v", want, got)
